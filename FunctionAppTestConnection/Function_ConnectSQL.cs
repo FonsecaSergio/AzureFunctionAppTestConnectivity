@@ -11,7 +11,7 @@ using System.Data;
 using System.Data.SqlClient;
 
 
-//PRECISA DO .NET CORE 2.1 / sqlclient 4.5.1 bug sql client
+//NEED .NET CORE 2.1 / sqlclient 4.5.1 bug sql client
 
 
 namespace FunctionAppTestConnection
