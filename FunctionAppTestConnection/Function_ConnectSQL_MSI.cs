@@ -9,38 +9,46 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.Data;
 using System.Data.SqlClient;
-
-
-//NEED .NET CORE 2.1 / sqlclient 4.5.1 bug sql client
-//2020-04-07 - WORKS WITH .NET CORE 3.1 / SQL Client 4.8.1 + Include="System.Diagnostics.DiagnosticSource" Version="5.0.0-preview.2.20160.6"
-
+using Microsoft.Azure.Services.AppAuthentication;
 
 namespace FunctionAppTestConnection
 {
-    public static class Function_ConnectSQL
+    public static class Function_ConnectSQL_MSI
     {
-        [FunctionName("Function_ConnectSQL")]
+        [FunctionName("Function_ConnectSQL_MSI")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
-            string ConnectionString = req.Query["ConnectionString"];
+            string ServerName = req.Query["ServerName"];
+            string DatabaseName = req.Query["DatabaseName"];
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             dynamic data = JsonConvert.DeserializeObject(requestBody);
-            ConnectionString = ConnectionString ?? data?.name;
+            ServerName = ServerName ?? data?.ServerName;
+            DatabaseName = DatabaseName ?? data?.DatabaseName;
 
+
+
+            string ConnectionString = "Server=tcp:" + ServerName + ";Initial Catalog=" + DatabaseName + ";Persist Security Info=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             string result = "NOT CONNECTED";
 
             SqlConnection sqlConnection = new SqlConnection();
 
             sqlConnection = new SqlConnection(ConnectionString);
 
+            ////////////////////////////
+            ///https://docs.microsoft.com/en-us/azure/app-service/overview-managed-identity?tabs=dotnet#asal
+            ////////////////////////////
+
+            var azureServiceTokenProvider = new AzureServiceTokenProvider();
+            string accessToken = await azureServiceTokenProvider.GetAccessTokenAsync("https://database.windows.net/");
+            sqlConnection.AccessToken = accessToken;
+            ////////////////////////////
 
             SqlCommand sqlCommand = new SqlCommand("SELECT SERVERNAME = @@SERVERNAME", sqlConnection);
-
             string CurrentTime = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
 
             try
@@ -63,9 +71,9 @@ namespace FunctionAppTestConnection
             }
 
 
-            return ConnectionString != null
+            return ServerName != null && DatabaseName != null
                 ? (ActionResult)new OkObjectResult($"{result}")
-                : new BadRequestObjectResult("Please pass a ConnectionString on the query string or in the request body");
+                : new BadRequestObjectResult("Please pass a name on the query string or in the request body");
         }
     }
 }
