@@ -10,12 +10,17 @@ Azure function expect parameter
 Server=tcp:XXXXXXX.database.windows.net,1433;Initial Catalog=sandbox;Persist Security Info=False;User ID=XXXXXXXX;Password={your_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
 ```
 
+REF: https://techcommunity.microsoft.com/t5/azure-database-support-blog/azure-sql-db-private-link-private-endpoint-connectivity/ba-p/1235573
+
+
 ## ###########################################################	
 ## Function_ConnectSQL_MSI
 ## ###########################################################
 Azure function expect parameters: 
  - "ServerName"
  - "DatabaseName"
+
+ REF: https://techcommunity.microsoft.com/t5/azure-database-support-blog/using-managed-service-identity-msi-to-authenticate-on-azure-sql/ba-p/1288248
 
 
 ## ###########################################################
