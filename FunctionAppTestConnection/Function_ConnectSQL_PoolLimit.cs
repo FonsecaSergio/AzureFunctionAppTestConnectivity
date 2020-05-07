@@ -12,14 +12,14 @@ using System.Data.SqlClient;
 
 namespace FunctionAppConnectionLimits
 {
-    public static class FunctionConnectionPoolLimit
+    public static class Function_ConnectSQL_PoolLimit
     {
 
         ///SAMPLE1 - MAX POOL SIZE 50
         ///  Server=tcp:SERVERNAME.database.windows.net,1433;Initial Catalog=sandbox;Persist Security Info=False;User ID=User;Password=XXXXXXXXX;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;Max Pool Size=10;
 
 
-        [FunctionName("FunctionConnectionPoolLimit")]
+        [FunctionName("Function_ConnectSQL_PoolLimit")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
             ILogger log)

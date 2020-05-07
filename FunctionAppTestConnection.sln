@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionAppTestConnection", "FunctionAppTestConnection\FunctionAppTestConnection.csproj", "{6F37616C-84BB-4968-B954-A4E3D96D5C13}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionAppConnectionLimits", "FunctionAppConnectionLimits\FunctionAppConnectionLimits.csproj", "{5179FC30-17EA-4D12-B488-A8CF62B25E9B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{495B572A-8843-41ED-9437-B65FABC6F304}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
@@ -22,10 +20,6 @@ Global
 		{6F37616C-84BB-4968-B954-A4E3D96D5C13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F37616C-84BB-4968-B954-A4E3D96D5C13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F37616C-84BB-4968-B954-A4E3D96D5C13}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5179FC30-17EA-4D12-B488-A8CF62B25E9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5179FC30-17EA-4D12-B488-A8CF62B25E9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5179FC30-17EA-4D12-B488-A8CF62B25E9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5179FC30-17EA-4D12-B488-A8CF62B25E9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
