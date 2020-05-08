@@ -24,6 +24,7 @@ Azure function expect parameters:
 
 ## Function_ConnectSQL_PoolLimit
 Azure function expect parameters:
+ - "HighCPU" (1 or 0) When set to 1 Azure Function will do some math to increase CPU usage
  - "LoopLimit" that should int (Sample: 5000)
  - "ConnectionString" like sample below, and you can change parameter Max Pool Size=10
 ```

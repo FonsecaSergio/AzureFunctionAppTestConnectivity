@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.Data;
 using System.Data.SqlClient;
+using System.Security.Cryptography;
 
 namespace FunctionAppConnectionLimits
 {
@@ -28,10 +29,11 @@ namespace FunctionAppConnectionLimits
 
             string ConnectionString = req.Query["ConnectionString"];
             int LoopLimit = Convert.ToInt32(req.Query["LoopLimit"]);
+            int HighCPU = Convert.ToInt32(req.Query["HighCPU"]);
 
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-            ConnectionString = ConnectionString ?? data?.name;
+            //string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            //dynamic data = JsonConvert.DeserializeObject(requestBody);
+            //ConnectionString = ConnectionString ?? data?.name;
 
             string result = "NOT CONNECTED";
 
@@ -58,6 +60,16 @@ namespace FunctionAppConnectionLimits
                     log.LogInformation(String.Format("Loop {0}", Aux));
                     SqlConnection sqlConnection2 = new SqlConnection(ConnectionString);
                     sqlConnection2.Open();
+                    if (HighCPU == 1)
+                    {
+                        Random rnd = new Random();
+                        double X = rnd.Next() * rnd.Next() / 50.0;
+                        double Y = rnd.Next() * rnd.Next() / 50.0;
+                        double Z = rnd.Next() * rnd.Next() / 50.0;
+                        double A = rnd.Next() * rnd.Next() / 50.0;
+                        double B = rnd.Next() * rnd.Next() / 50.0;
+                        double C = rnd.Next() * rnd.Next() / 50.0;
+                    }
                 }
                 
             }
